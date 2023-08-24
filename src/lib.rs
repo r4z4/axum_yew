@@ -2,6 +2,13 @@ use yew::prelude::*;
 use gloo::console::log;
 use serde::Serialize;
 use stylist::{yew::styled_component, style};
+use stylist::Style;
+
+mod components;
+
+use components::units::main_title::MainTitle;
+
+const CSS_FILE: &str = include_str!("main.css");
 
 #[derive(Serialize)]
 struct CurrentUser {
@@ -11,19 +18,7 @@ struct CurrentUser {
 
 #[styled_component(App)]
 pub fn app() -> Html {
-    let stylesheet = style!(
-        r#"
-            background-color: #64649b;
-
-            li {
-                color: white;
-            }
-            p {
-                color: purple;
-            }
-        "#
-    )
-    .unwrap();
+    let stylesheet = Style::new(CSS_FILE).unwrap();
     let username = "Jim_01";
     let user = CurrentUser {
         username: username.to_owned(),
@@ -39,6 +34,7 @@ pub fn app() -> Html {
 
     html! {
         <>
+            <MainTitle title="Component Title :)" />
             <h1 class="main_title">{"Yew Main Heading"}</h1>
             <h1 class={title_class}>{"Yew Alt Heading"}</h1>
             <div>{"Yew Div"}</div>

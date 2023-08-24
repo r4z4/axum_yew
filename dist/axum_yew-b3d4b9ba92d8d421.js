@@ -606,12 +606,12 @@ function __wbg_get_imports() {
     imports.wbg.__wbindgen_throw = function(arg0, arg1) {
         throw new Error(getStringFromWasm0(arg0, arg1));
     };
-    imports.wbg.__wbindgen_closure_wrapper7200 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 326, __wbg_adapter_16);
+    imports.wbg.__wbindgen_closure_wrapper7338 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 353, __wbg_adapter_16);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper7354 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 348, __wbg_adapter_19);
+    imports.wbg.__wbindgen_closure_wrapper7492 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 375, __wbg_adapter_19);
         return addHeapObject(ret);
     };
 
@@ -653,7 +653,7 @@ async function __wbg_init(input) {
     if (wasm !== undefined) return wasm;
 
     if (typeof input === 'undefined') {
-        input = new URL('axum_yew-e28c620293709ad4_bg.wasm', import.meta.url);
+        input = new URL('axum_yew-b3d4b9ba92d8d421_bg.wasm', import.meta.url);
     }
     const imports = __wbg_get_imports();
 
