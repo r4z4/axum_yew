@@ -1,6 +1,7 @@
 use yew::prelude::*;
 use gloo::console::log;
 use serde::Serialize;
+use stylist::{yew::styled_component, style};
 
 #[derive(Serialize)]
 struct CurrentUser {
@@ -8,8 +9,21 @@ struct CurrentUser {
     role: String,
 }
 
-#[function_component(App)]
+#[styled_component(App)]
 pub fn app() -> Html {
+    let stylesheet = style!(
+        r#"
+            background-color: #64649b;
+
+            li {
+                color: white;
+            }
+            p {
+                color: purple;
+            }
+        "#
+    )
+    .unwrap();
     let username = "Jim_01";
     let user = CurrentUser {
         username: username.to_owned(),
@@ -28,7 +42,7 @@ pub fn app() -> Html {
             <h1 class="main_title">{"Yew Main Heading"}</h1>
             <h1 class={title_class}>{"Yew Alt Heading"}</h1>
             <div>{"Yew Div"}</div>
-            <div>
+            <div class={stylesheet}>
                 <ul>
                     <li>{"First"}</li>
                     <li>{"Second"}</li>
