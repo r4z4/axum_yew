@@ -19,7 +19,10 @@ pub fn app() -> Html {
     log!(serde_json::to_string_pretty(&user).unwrap());
     let title_class = "alt_title";
     let p_class = "main_p";
-    let message = Some("Important user message.");
+    let message: Option<&str> = None;
+
+    let roles: Vec<&str> = vec!["admin", "patient", "gov", "office"];
+
     html! {
         <>
             <h1 class="main_title">{"Yew Main Heading"}</h1>
@@ -33,15 +36,25 @@ pub fn app() -> Html {
                     <li>{"Fourth"}</li>
                 </ul>
                 if p_class == "main_p" {
-                    <p>{"This is the main P"}</p>
+                    <p>{"This is the main p"}</p>
                 } else {
-                    <p>{"This is the alt P"}</p>
+                    <p>{"This is the alt p"}</p>
                 }
 
                 if let Some(message) = message {
                     <p>{message}</p>
+                } else {
+                    <p>{"No user messages."}</p>
                 }
+
+                <ul>
+                    {vec_to_html(roles)}
+                </ul>
             </div>
         </>
     }
+}
+
+fn vec_to_html(list: Vec<&str>) -> Vec<Html> {
+    list.iter().map(|item| html!{<li>{item}</li>}).collect()
 }
