@@ -3,26 +3,59 @@ use crate::components::units::text_input::TextInput;
 use crate::components::units::button::Button;
 use wasm_bindgen::JsCast;
 use gloo::console::log;
+use std::ops::Deref;
+
+#[derive(Default, Clone)]
+pub struct Data {
+    pub provider_name: String,
+    pub provider_address_1: String,
+    pub provider_address_2: String,
+
+}
+
+#[derive(Properties, PartialEq)]
+pub struct Props {
+    pub onsubmit: Callback<Data>,
+}
 
 #[function_component(SimpleForm)]
-pub fn simple_form() -> Html {
-    let username_state: UseStateHandle<String> = use_state(|| "No Username Set".to_owned());
-    let button_count_state: UseStateHandle<u32> = use_state(|| 0_u32);
-    let cloned_username_state = username_state.clone();
-    let username_changed: Callback<String> = Callback::from(move |username| {
-            cloned_username_state.set(username);
+pub fn simple_form(props: &Props) -> Html {
+    let state: UseStateHandle<Data> = use_state(|| Data::default());
+    
+    let cloned_state: UseStateHandle<Data> = state.clone();
+    let name_changed: Callback<String> = Callback::from(move |name| {
+        let mut data: Data = cloned_state.deref().clone();
+        data.provider_name = name;
+        cloned_state.set(data);    
     });
-    let cloned_button_count_state = button_count_state.clone();
-    let button_clicked = Callback::from(move |_| {
-        let count: u32 = *cloned_button_count_state;
-        cloned_button_count_state.set(count + 1);
+
+    let cloned_state: UseStateHandle<Data> = state.clone();
+    let addr_1_changed: Callback<String> = Callback::from(move |addr_1| {
+        let mut data: Data = cloned_state.deref().clone();
+        data.provider_address_1 = addr_1;
+        cloned_state.set(data);    
+    });
+
+    let cloned_state: UseStateHandle<Data> = state.clone();
+    let addr_2_changed: Callback<String> = Callback::from(move |addr_2| {
+        let mut data: Data = cloned_state.deref().clone();
+        data.provider_address_2 = addr_2;
+        cloned_state.set(data);    
+    });
+
+    let form_onsubmit = props.onsubmit.clone();
+    let cloned_state = state.clone();
+    let onsubmit: Callback<SubmitEvent> = Callback::from(move |event: SubmitEvent| {
+        event.prevent_default();
+        let data = cloned_state.deref().clone();
+        form_onsubmit.emit(data);
     });
     html! {
-        <div>
-            <TextInput name="username" placeholder="Username" handle_onchange={username_changed} />
-            <Button label="Submit" onclick={button_clicked} />
-            <p>{"Username: "}{&*username_state}</p>
-            <p>{"Button has been clicked "}{*button_count_state}{" times"}</p>
-        </div>
+        <form onsubmit={onsubmit}>
+            <TextInput name="provider_name" placeholder="Provider Name" handle_onchange={name_changed} />
+            <TextInput name="provider_address_1" placeholder="Address" handle_onchange={addr_1_changed} />
+            <TextInput name="provider_address_2" placeholder="Apt/Ste" handle_onchange={addr_2_changed} />
+            <Button label="Submit" />
+        </form>
     }
 }

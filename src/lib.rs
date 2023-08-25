@@ -7,7 +7,7 @@ use stylist::Style;
 mod components;
 
 use components::units::main_title::{MainTitle, Color};
-use components::units::simple_form::SimpleForm;
+use components::units::simple_form::{SimpleForm, Data};
 
 const CSS_FILE: &str = include_str!("main.css");
 
@@ -35,6 +35,12 @@ pub fn app() -> Html {
 
     let main_title_loaded = Callback::from(|message: String| log!(message));
 
+    let custom_form_submit = Callback::from(|data: Data| {
+        log!("Name is", data.provider_name);
+        log!("Addr 1 is", data.provider_address_1);
+        log!("Addr 2 is", data.provider_address_2);
+    });
+
     html! {
         <>
             <h1 class="main_title">{"Yew Main Heading"}</h1>
@@ -48,7 +54,7 @@ pub fn app() -> Html {
                     <li>{"Third"}</li>
                     <li>{"Fourth"}</li>
                 </ul>
-                <SimpleForm />
+                <SimpleForm onsubmit={custom_form_submit} />
                 if p_class == "main_p" {
                     <p>{"This is the main p"}</p>
                 } else {
