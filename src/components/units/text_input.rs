@@ -6,11 +6,13 @@ use wasm_bindgen::JsCast;
 #[derive(Properties, PartialEq)]
 pub struct Props {
     pub name: String,
-    pub placeholder: String
+    pub placeholder: String,
+    pub handle_onchange: Callback<String>,
 }
 
 #[function_component(TextInput)]
 pub fn text_input(props: &Props) -> Html {
+    let handle_onchange: Callback<String> = props.handle_onchange.clone();
     let result: UseStateHandle<String> = use_state(|| "".to_owned());
     let input_string: UseStateHandle<String> = use_state(|| "".to_owned());
     let onchange = {
@@ -19,7 +21,8 @@ pub fn text_input(props: &Props) -> Html {
             move |event: Event| {
                 let target: EventTarget = event.target().unwrap();
                 let input: HtmlInputElement = target.unchecked_into::<HtmlInputElement>();
-                log!(input.value());
+                let value = input.value();
+                handle_onchange.emit(value);
             }
         )
     };

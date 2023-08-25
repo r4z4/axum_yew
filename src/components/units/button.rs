@@ -2,12 +2,17 @@ use yew::prelude::*;
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
-    pub label: String
+    pub label: String,
+    pub onclick: Callback<()>,
 }
 
 #[function_component(Button)]
 pub fn button(props: &Props) -> Html {
+    let onclick = props.onclick.clone();
+    let button_onclick = Callback::from(move |_| {
+        onclick.emit(());
+    });
     html! {
-        <button type="submit">{&props.label}</button>
+        <button onclick={button_onclick}>{&props.label}</button>
     }
 }
