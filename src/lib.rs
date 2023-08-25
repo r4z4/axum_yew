@@ -7,6 +7,7 @@ use stylist::Style;
 mod components;
 
 use components::units::main_title::{MainTitle, Color};
+use components::units::simple_form::SimpleForm;
 
 const CSS_FILE: &str = include_str!("main.css");
 
@@ -47,6 +48,7 @@ pub fn app() -> Html {
                     <li>{"Third"}</li>
                     <li>{"Fourth"}</li>
                 </ul>
+                <SimpleForm />
                 if p_class == "main_p" {
                     <p>{"This is the main p"}</p>
                 } else {
