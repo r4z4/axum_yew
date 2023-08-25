@@ -9,3 +9,17 @@ li {
 p {
     color: purple;
 }
+
+.okay {
+    color: green;
+    font-style: italic;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+.base {
+    color: white;
+}

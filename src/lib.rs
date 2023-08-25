@@ -6,7 +6,7 @@ use stylist::Style;
 
 mod components;
 
-use components::units::main_title::MainTitle;
+use components::units::main_title::{MainTitle, Color};
 
 const CSS_FILE: &str = include_str!("main.css");
 
@@ -32,13 +32,15 @@ pub fn app() -> Html {
 
     let roles: Vec<&str> = vec!["admin", "patient", "gov", "office"];
 
+    let main_title_loaded = Callback::from(|message: String| log!(message));
+
     html! {
         <>
-            <MainTitle title="Component Title :)" />
             <h1 class="main_title">{"Yew Main Heading"}</h1>
             <h1 class={title_class}>{"Yew Alt Heading"}</h1>
             <div>{"Yew Div"}</div>
             <div class={stylesheet}>
+            <MainTitle title="Component Title In Div :)" color={Color::Okay} on_load={main_title_loaded} />
                 <ul>
                     <li>{"First"}</li>
                     <li>{"Second"}</li>
