@@ -3,11 +3,14 @@ use gloo::console::log;
 use serde::Serialize;
 use stylist::{yew::styled_component, style};
 use stylist::Style;
+use yew_router::prelude::*;
 
 mod components;
+mod router;
 
 use components::units::main_title::{MainTitle, Color};
 use components::units::simple_form::{SimpleForm, Data};
+use crate::router::{switch, Route};
 
 const CSS_FILE: &str = include_str!("main.css");
 
@@ -36,9 +39,9 @@ pub fn app() -> Html {
     let main_title_loaded = Callback::from(|message: String| log!(message));
 
     let custom_form_submit = Callback::from(|data: Data| {
-        log!("Name is", data.provider_name);
-        log!("Addr 1 is", data.provider_address_1);
-        log!("Addr 2 is", data.provider_address_2);
+        log!("Name is", data.name);
+        log!("Addr 1 is", data.address_1);
+        log!("Addr 2 is", data.address_2);
     });
 
     html! {
@@ -48,6 +51,9 @@ pub fn app() -> Html {
             <div>{"Yew Div"}</div>
             <div class={stylesheet}>
             <MainTitle title="Component Title In Div :)" color={Color::Okay} on_load={main_title_loaded} />
+            <BrowserRouter>
+                <Switch<Route> render={switch} />
+            </BrowserRouter>
                 <ul>
                     <li>{"First"}</li>
                     <li>{"Second"}</li>

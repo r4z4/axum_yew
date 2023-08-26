@@ -7,9 +7,9 @@ use std::ops::Deref;
 
 #[derive(Default, Clone)]
 pub struct Data {
-    pub name: String,
-    pub address_1: String,
-    pub address_2: String,
+    pub provider_name: String,
+    pub provider_address_1: String,
+    pub provider_address_2: String,
 
 }
 
@@ -18,28 +18,28 @@ pub struct Props {
     pub onsubmit: Callback<Data>,
 }
 
-#[function_component(SimpleForm)]
-pub fn simple_form(props: &Props) -> Html {
+#[function_component(ProviderForm)]
+pub fn provider_form(props: &Props) -> Html {
     let state: UseStateHandle<Data> = use_state(|| Data::default());
     
     let cloned_state: UseStateHandle<Data> = state.clone();
     let name_changed: Callback<String> = Callback::from(move |name| {
         let mut data: Data = cloned_state.deref().clone();
-        data.name = name;
+        data.provider_name = name;
         cloned_state.set(data);    
     });
 
     let cloned_state: UseStateHandle<Data> = state.clone();
     let addr_1_changed: Callback<String> = Callback::from(move |addr_1| {
         let mut data: Data = cloned_state.deref().clone();
-        data.address_1 = addr_1;
+        data.provider_address_1 = addr_1;
         cloned_state.set(data);    
     });
 
     let cloned_state: UseStateHandle<Data> = state.clone();
     let addr_2_changed: Callback<String> = Callback::from(move |addr_2| {
         let mut data: Data = cloned_state.deref().clone();
-        data.address_2 = addr_2;
+        data.provider_address_2 = addr_2;
         cloned_state.set(data);    
     });
 
@@ -52,9 +52,9 @@ pub fn simple_form(props: &Props) -> Html {
     });
     html! {
         <form onsubmit={onsubmit}>
-            <TextInput name="name" placeholder="Name" handle_onchange={name_changed} />
-            <TextInput name="address_1" placeholder="Address" handle_onchange={addr_1_changed} />
-            <TextInput name="address_2" placeholder="Apt/Ste" handle_onchange={addr_2_changed} />
+            <TextInput name="provider_name" placeholder="Provider Name" handle_onchange={name_changed} />
+            <TextInput name="provider_address_1" placeholder="Address" handle_onchange={addr_1_changed} />
+            <TextInput name="provider_address_2" placeholder="Apt/Ste" handle_onchange={addr_2_changed} />
             <Button label="Submit" />
         </form>
     }
