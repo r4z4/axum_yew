@@ -1,5 +1,5 @@
 ul {
-    background-color: #64649b;
+    border: 2px solid #64649b;
 }
 
 li {
@@ -10,9 +10,14 @@ p {
     color: purple;
 }
 
+body {
+    background-color: #ADADAD;
+}
+
 .okay {
     color: green;
     font-style: italic;
+    text-align: center;
 }
 
 .error {
@@ -23,3 +28,67 @@ p {
 .base {
     color: white;
 }
+
+#nav-list {
+    margin: auto;
+    width: auto;
+}
+
+#nav-list ul{
+    list-style: none;
+    text-align: center;
+}
+
+#nav-list li{
+    display: inline;
+    padding: 10px;
+    
+}
+
+.data-display {
+    border: 2px solid fuchsia;
+    margin: auto;
+}
+
+.data-display h1 {
+    text-align: center;
+}
+
+fieldset {
+    position: relative;
+}
+  
+legend {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }
+
+  input[type=email] {
+    width: 50%;
+    padding: 12px 20px;
+    border-radius: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    background-color: white;
+    background-image: url('img/at.svg');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding-left: 40px;
+  }
+
+  input[type=tel] {
+    width: 50%;
+    padding: 12px 20px;
+    border-radius: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }

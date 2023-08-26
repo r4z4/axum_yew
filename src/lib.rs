@@ -10,6 +10,7 @@ mod router;
 
 use components::units::main_title::{MainTitle, Color};
 use components::units::simple_form::{SimpleForm, Data};
+use crate::components::units::nav::Nav;
 use crate::router::{switch, Route};
 
 const CSS_FILE: &str = include_str!("main.css");
@@ -45,39 +46,33 @@ pub fn app() -> Html {
     });
 
     html! {
-        <>
-            <h1 class="main_title">{"Yew Main Heading"}</h1>
-            <h1 class={title_class}>{"Yew Alt Heading"}</h1>
-            <div>{"Yew Div"}</div>
-            <div class={stylesheet}>
-            <MainTitle title="Component Title In Div :)" color={Color::Okay} on_load={main_title_loaded} />
+        <div class={stylesheet}>   
+            <MainTitle title="🏥 External Review Portal for {INSERT STATE HERE} 🩺" color={Color::Okay} on_load={main_title_loaded} />
             <BrowserRouter>
+                // Nav needs to be child of BrowserRouter
+                <Nav color={"black"} />
                 <Switch<Route> render={switch} />
             </BrowserRouter>
-                <ul>
-                    <li>{"First"}</li>
-                    <li>{"Second"}</li>
-                    <li>{"Third"}</li>
-                    <li>{"Fourth"}</li>
-                </ul>
-                <SimpleForm onsubmit={custom_form_submit} />
-                if p_class == "main_p" {
-                    <p>{"This is the main p"}</p>
-                } else {
-                    <p>{"This is the alt p"}</p>
-                }
+            <ul>
+                <li>{"🩺 Doc"}</li>
+            </ul>
+            <SimpleForm onsubmit={custom_form_submit} />
+            if p_class == "main_p" {
+                <p>{"This is the main p"}</p>
+            } else {
+                <p>{"This is the alt p"}</p>
+            }
 
-                if let Some(message) = message {
-                    <p>{message}</p>
-                } else {
-                    <p>{"No user messages."}</p>
-                }
+            if let Some(message) = message {
+                <p>{message}</p>
+            } else {
+                <p>{"No user messages."}</p>
+            }
 
-                <ul>
-                    {vec_to_html(roles)}
-                </ul>
-            </div>
-        </>
+            <ul>
+                {vec_to_html(roles)}
+            </ul>
+        </div>
     }
 }
 

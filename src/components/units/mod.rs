@@ -5,3 +5,8 @@ pub mod simple_form;
 pub mod provider_form;
 pub mod eligible_case_form;
 pub mod radio;
+pub mod tel_input;
+pub mod email_input;
+pub mod date_input;
+pub mod nav;
+pub mod data_display;

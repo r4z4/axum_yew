@@ -1,6 +1,7 @@
 use yew::prelude::*;
 use crate::components::units::text_input::TextInput;
 use crate::components::units::radio::Radio;
+use crate::components::units::date_input::DateInput;
 use crate::components::units::button::Button;
 use wasm_bindgen::JsCast;
 use gloo::console::log;
@@ -10,6 +11,7 @@ use std::ops::Deref;
 pub struct Data {
     pub denial_reason: String,
     pub expedited: String,
+    pub date_forwarded: String,
 }
 
 #[derive(Properties, PartialEq)]
@@ -28,6 +30,12 @@ pub fn eligible_case_form(props: &Props) -> Html {
         cloned_state.set(data);    
     });
 
+    let cloned_state: UseStateHandle<Data> = state.clone();
+    let date_forwarded_changed: Callback<String> = Callback::from(move |date_forwarded| {
+        let mut data: Data = cloned_state.deref().clone();
+        data.date_forwarded = date_forwarded;
+        cloned_state.set(data);    
+    });
 
     let cloned_state: UseStateHandle<Data> = state.clone();
     let expedited_changed: Callback<String> = Callback::from(move |expedited| {
@@ -46,6 +54,7 @@ pub fn eligible_case_form(props: &Props) -> Html {
     html! {
         <form onsubmit={onsubmit}>
             <TextInput name="denial_reason" placeholder="Denial Reason" handle_onchange={denial_reason_changed} />
+            <DateInput name="date_forwarded" handle_onchange={date_forwarded_changed} />
             <Radio name={"expedited"} handle_onchange={expedited_changed} />
             <Button label="Submit" />
         </form>
