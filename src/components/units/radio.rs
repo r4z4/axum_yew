@@ -6,16 +6,15 @@ use wasm_bindgen::JsCast;
 #[derive(Properties, PartialEq)]
 pub struct Props {
     pub name: String,
-    pub placeholder: String,
     pub handle_onchange: Callback<String>,
 }
 
-#[function_component(TextInput)]
-pub fn text_input(props: &Props) -> Html {
+#[function_component(Radio)]
+pub fn radio(props: &Props) -> Html {
     let handle_onchange: Callback<String> = props.handle_onchange.clone();
-    let input_string: UseStateHandle<String> = use_state(|| "".to_owned());
+    let input_bool: UseStateHandle<String> = use_state(|| "no".to_owned());
     let onchange = {
-        let input_string_cloned: UseStateHandle<String> = input_string.clone();
+        let input_bool_cloned: UseStateHandle<String> = input_bool.clone();
         Callback::from(
             move |event: Event| {
                 let target: EventTarget = event.target().unwrap();
@@ -26,6 +25,17 @@ pub fn text_input(props: &Props) -> Html {
         )
     };
     html! {
-        <input type="text" name={props.name.clone()} placeholder={props.placeholder.clone()} onchange={onchange}/>
+        <fieldset>
+        <legend>{"Expedited"}</legend>
+        <div>
+            <input type="radio" id={"yes"} name={props.name.clone()} value={"yes"} />
+            <label for="yes">{"Yes"}</label>
+        </div>
+
+        <div>
+            <input type="radio" id={"no"} name={props.name.clone()} value={"no"} checked={true} />
+            <label for="no">{"No"}</label>
+        </div>
+        </fieldset>
     }
 }

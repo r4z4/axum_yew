@@ -10,7 +10,6 @@ pub struct Data {
     pub name: String,
     pub address_1: String,
     pub address_2: String,
-
 }
 
 #[derive(Properties, PartialEq)]
