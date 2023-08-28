@@ -22,7 +22,7 @@ pub fn iro() -> Html {
         <div>
             <h1>{"Iro"}</h1>
             <div id={"iro_form"}>
-                <SimpleForm onsubmit={iro_form_submit} />
+                <SimpleForm form_title={"Add IRO"} onsubmit={iro_form_submit} />
                 <button onclick={onclick}>{"Go Home"}</button>
             </div>
             <div id={"iro_display"}>

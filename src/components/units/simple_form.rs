@@ -26,6 +26,7 @@ pub struct Data {
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
+    pub form_title: String,
     pub onsubmit: Callback<Data>,
 }
 
@@ -108,20 +109,23 @@ pub fn simple_form(props: &Props) -> Html {
         form_onsubmit.emit(data);
     });
     html! {
-        <form onsubmit={onsubmit}>
-            <TextInput name="name" placeholder="Name" handle_onchange={name_changed} />
+        <div class={"simple-form"}>
+        <h3>{props.form_title.deref().clone()}</h3>
+            <form onsubmit={onsubmit}>
+                <TextInput name="name" placeholder="Name" handle_onchange={name_changed} />
 
-            <TextInput name="f_name" placeholder="First Name" handle_onchange={f_name_changed} />
-            <TextInput name="l_name" placeholder="Last Name" handle_onchange={l_name_changed} />
+                <TextInput name="f_name" placeholder="First Name" handle_onchange={f_name_changed} />
+                <TextInput name="l_name" placeholder="Last Name" handle_onchange={l_name_changed} />
 
-            <TextInput name="address_1" placeholder="Address" handle_onchange={addr_1_changed} />
-            <TextInput name="address_2" placeholder="Apt/Ste" handle_onchange={addr_2_changed} />
-            <TextInput name="contact_f_name" placeholder="Contact First Name" handle_onchange={contact_f_name_changed} />
-            <TextInput name="contact_l_name" placeholder="Contact Last Nname" handle_onchange={contact_l_name_changed} />
+                <TextInput name="address_1" placeholder="Address" handle_onchange={addr_1_changed} />
+                <TextInput name="address_2" placeholder="Apt/Ste" handle_onchange={addr_2_changed} />
+                <TextInput name="contact_f_name" placeholder="Contact First Name" handle_onchange={contact_f_name_changed} />
+                <TextInput name="contact_l_name" placeholder="Contact Last Nname" handle_onchange={contact_l_name_changed} />
 
-            <TelInput name="phone" placeholder="Phone" handle_onchange={phone_changed} />
-            <EmailInput name="email" placeholder="Email" handle_onchange={email_changed} />
-            <Button label="Submit" />
-        </form>
+                <TelInput name="phone" placeholder="Phone" handle_onchange={phone_changed} />
+                <EmailInput name="email" placeholder="Email" handle_onchange={email_changed} />
+                <Button label="Submit" />
+            </form>
+        </div>
     }
 }

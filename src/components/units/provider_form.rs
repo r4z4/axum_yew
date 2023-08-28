@@ -14,6 +14,7 @@ pub struct Data {
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
+    pub form_title: String,
     pub onsubmit: Callback<Data>,
 }
 
@@ -50,11 +51,14 @@ pub fn provider_form(props: &Props) -> Html {
         form_onsubmit.emit(data);
     });
     html! {
-        <form onsubmit={onsubmit}>
-            <TextInput name="provider_name" placeholder="Provider Name" handle_onchange={name_changed} />
-            <TextInput name="provider_address_1" placeholder="Address" handle_onchange={addr_1_changed} />
-            <TextInput name="provider_address_2" placeholder="Apt/Ste" handle_onchange={addr_2_changed} />
-            <Button label="Submit" />
-        </form>
+        <div>
+            <h3>{props.form_title.deref().clone()}</h3>
+            <form onsubmit={onsubmit}>
+                <TextInput name="provider_name" placeholder="Provider Name" handle_onchange={name_changed} />
+                <TextInput name="provider_address_1" placeholder="Address" handle_onchange={addr_1_changed} />
+                <TextInput name="provider_address_2" placeholder="Apt/Ste" handle_onchange={addr_2_changed} />
+                <Button label="Submit" />
+            </form>
+        </div>
     }
 }

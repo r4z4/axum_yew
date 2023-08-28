@@ -1,3 +1,4 @@
+pub mod login;
 pub mod home;
 pub mod provider;
 pub mod patient;

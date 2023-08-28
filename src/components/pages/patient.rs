@@ -22,7 +22,7 @@ pub fn patient() -> Html {
         <div>
             <h1>{"Patient"}</h1>
             <div id={"patient_form"}>
-                <SimpleForm onsubmit={patient_form_submit} />
+                <SimpleForm form_title={"Add Patient"} onsubmit={patient_form_submit} />
                 <button onclick={onclick}>{"Go Home"}</button>
             </div>
             <div id={"patient_display"}>

@@ -22,7 +22,7 @@ pub fn insurer() -> Html {
         <div>
             <h1>{"Insurer"}</h1>
             <div id={"insurer_form"}>
-                <SimpleForm onsubmit={insurer_form_submit} />
+                <SimpleForm form_title={"Add Insurer"} onsubmit={insurer_form_submit} />
                 <button onclick={onclick}>{"Go Home"}</button>
             </div>
             <div id={"insurer_display"}>

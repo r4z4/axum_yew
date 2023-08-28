@@ -18,7 +18,7 @@ pub fn eligible_case() -> Html {
     html! {
         <div>
             <h1>{"EligibleCase"}</h1>
-            <EligibleCaseForm onsubmit={eligible_case_form_submit} />
+            <EligibleCaseForm form_title={"Add Eligible Case"} onsubmit={eligible_case_form_submit} />
             <button onclick={onclick}>{"Go Home"}</button>
         </div>
     }

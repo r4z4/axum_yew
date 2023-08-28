@@ -22,7 +22,7 @@ pub fn provider() -> Html {
         <div>
             <h1>{"Provider"}</h1>
             <div id={"provider_form"}>
-                <SimpleForm onsubmit={provider_form_submit} />
+                <SimpleForm form_title={"Add Provider"} onsubmit={provider_form_submit} />
                 <button onclick={onclick}>{"Go Home"}</button>
             </div>
             <div id={"provider_display"}>

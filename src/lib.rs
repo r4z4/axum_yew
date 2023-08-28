@@ -17,20 +17,20 @@ const CSS_FILE: &str = include_str!("main.css");
 
 #[derive(Serialize)]
 struct CurrentUser {
-    username: String,
-    role: String,
+    username: Option<String>,
+    role: Option<String>,
 }
 
 #[styled_component(App)]
 pub fn app() -> Html {
     let stylesheet = Style::new(CSS_FILE).unwrap();
     let username = "Jim_01";
-    let user = CurrentUser {
-        username: username.to_owned(),
-        role: "admin".to_owned(),
+    let current_user = CurrentUser {
+        username: Some(username.to_owned()),
+        role: Some("admin".to_owned()),
     };
     log!("The username is", username);
-    log!(serde_json::to_string_pretty(&user).unwrap());
+    log!(serde_json::to_string_pretty(&current_user).unwrap());
     let title_class = "alt_title";
     let p_class = "main_p";
     let message: Option<&str> = None;
@@ -48,15 +48,17 @@ pub fn app() -> Html {
     html! {
         <div class={stylesheet}>   
             <MainTitle title="🏥 External Review Portal for {INSERT STATE HERE} 🩺" color={Color::Okay} on_load={main_title_loaded} />
-            <BrowserRouter>
-                // Nav needs to be child of BrowserRouter
-                <Nav color={"black"} />
-                <Switch<Route> render={switch} />
-            </BrowserRouter>
+            if current_user.username.is_some() {
+                <BrowserRouter>
+                    // Nav needs to be child of BrowserRouter
+                    <Nav color={"black"} />
+                    <Switch<Route> render={switch} />
+                </BrowserRouter>
+            }
             <ul>
                 <li>{"🩺 Doc"}</li>
             </ul>
-            <SimpleForm onsubmit={custom_form_submit} />
+            <SimpleForm form_title={"Lib Form"} onsubmit={custom_form_submit} />
             if p_class == "main_p" {
                 <p>{"This is the main p"}</p>
             } else {
