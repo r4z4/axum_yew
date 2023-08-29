@@ -46,6 +46,7 @@ pub fn app() -> Html {
     });
 
     html! {
+        // let state = use_state(|| User {token: ""})
         <div class={stylesheet}>   
             <MainTitle title="🏥 External Review Portal for {INSERT STATE HERE} 🩺" color={Color::Okay} on_load={main_title_loaded} />
             if current_user.username.is_some() {
