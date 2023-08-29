@@ -2,7 +2,6 @@ use yew::prelude::*;
 use yew_router::prelude::*;
 use gloo::console::log;
 
-use crate::components::units::data_display::{DataDisplay, Entity};
 use crate::components::units::login_form::{LoginForm, Data};
 use crate::router::Route;
 

@@ -2,9 +2,9 @@ ul {
     border: 2px solid #64649b;
 }
 
-li {
+/* li {
     color: white;
-}
+} */
 
 p {
     color: purple;
@@ -15,8 +15,6 @@ body {
 }
 
 .okay {
-    color: green;
-    font-style: italic;
     text-align: center;
 }
 
@@ -46,7 +44,6 @@ body {
 }
 
 .data-display {
-    border: 2px solid fuchsia;
     margin: auto;
 }
 
@@ -93,6 +90,26 @@ input[type=text] {
     box-sizing: border-box;
   }
 
-  .simple-form {
-    width: 60%;
+  summary {
+    text-align: center;
+    cursor: pointer;
   }
+
+  summary::marker {
+    content: '➕';
+    font-size: 1.4em;
+  }
+
+  details[open] > summary::marker {
+    content: "➖";
+    font-size: 1.4em;
+}
+
+.form_container {
+    margin: auto;
+    width: 60%;
+}
+
+.data-display {
+    color: black;
+}

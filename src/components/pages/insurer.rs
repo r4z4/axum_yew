@@ -3,7 +3,7 @@ use yew_router::prelude::*;
 use gloo::console::log;
 
 use crate::components::units::simple_form::{SimpleForm, Data};
-use crate::components::units::data_display::{DataDisplay, Entity};
+use crate::components::units::insurer_display::{InsurerDisplay, Entity};
 use crate::router::Route;
 
 #[function_component(Insurer)]
@@ -21,12 +21,15 @@ pub fn insurer() -> Html {
     html! {
         <div>
             <h1>{"Insurer"}</h1>
-            <div id={"insurer_form"}>
-                <SimpleForm form_title={"Add Insurer"} onsubmit={insurer_form_submit} />
-                <button onclick={onclick}>{"Go Home"}</button>
-            </div>
+            <details>
+                <summary>{"Add an Insurer"}</summary>
+                <div class={"form_container"}>
+                    <SimpleForm form_title={"Add Insurer"} onsubmit={insurer_form_submit} />  
+                </div>
+            </details>
+            <button onclick={onclick}>{"Go Home"}</button>
             <div id={"insurer_display"}>
-                <DataDisplay title={"⚕️ Insurer Data 🥼"} entity={Entity::Insurer} on_load={data_display_loaded} />
+                <InsurerDisplay title={"⚕️ Insurer Data 🥼"} entity={Entity::Insurer} on_load={data_display_loaded} />
             </div>
         </div>
     }

@@ -3,7 +3,7 @@ use yew_router::prelude::*;
 use gloo::console::log;
 
 use crate::components::units::simple_form::{SimpleForm, Data};
-use crate::components::units::data_display::{DataDisplay, Entity};
+use crate::components::units::patient_display::{PatientDisplay, Entity};
 use crate::router::Route;
 
 #[function_component(Patient)]
@@ -21,12 +21,15 @@ pub fn patient() -> Html {
     html! {
         <div>
             <h1>{"Patient"}</h1>
-            <div id={"patient_form"}>
+            <details>
+                <summary>{"Add a Patient"}</summary>
+                <div class={"form_container"}>
                 <SimpleForm form_title={"Add Patient"} onsubmit={patient_form_submit} />
-                <button onclick={onclick}>{"Go Home"}</button>
-            </div>
+                </div>
+            </details>
+            <button onclick={onclick}>{"Go Home"}</button>
             <div id={"patient_display"}>
-                <DataDisplay title={"🧠 Patient Data 😷"} entity={Entity::Patient} on_load={data_display_loaded} />
+                <PatientDisplay title={"🧠 Patient Data 😷"} entity={Entity::Patient} on_load={data_display_loaded} />
             </div>
         </div>
     }

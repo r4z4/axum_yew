@@ -23,7 +23,7 @@ pub enum Entity {
 
 fn vec_to_html(list: &Vec<Provider>) -> Vec<Html> {
     list.iter().map(|provider| html!
-        {<ul>
+        {<ul class="data-display">
             <li>{provider.provider_name.clone()}</li>
             <li>{provider.provider_phone.clone()}</li>
             <li>{provider.provider_zip.clone()}</li>
@@ -56,8 +56,8 @@ pub struct Provider {
     pub created_by: Option<i32>,
 }
 
-#[styled_component(DataDisplay)]
-pub fn data_display(props: &Props) -> Html {
+#[styled_component(ProviderDisplay)]
+pub fn provider_display(props: &Props) -> Html {
     let entity = use_state(|| "provider".to_owned());
     let data: UseStateHandle<Option<Vec<Provider>>> = use_state(|| None);
     let cloned_data = data.clone();
@@ -87,7 +87,7 @@ pub fn data_display(props: &Props) -> Html {
             <h1>{&props.title}</h1>
             <p>{&props.entity.to_string()}</p>
             if cloned_data.is_some() {
-                <p>{vec_to_html(cloned_data.as_ref().unwrap())}</p>
+                {vec_to_html(cloned_data.as_ref().unwrap())}
             }
             <button {onclick}>{"Get Data"}</button>
         </div>

@@ -3,7 +3,7 @@ use yew_router::prelude::*;
 use gloo::console::log;
 
 use crate::components::units::simple_form::{SimpleForm, Data};
-use crate::components::units::data_display::{DataDisplay, Entity};
+use crate::components::units::iro_display::{IroDisplay, Entity};
 use crate::router::Route;
 
 #[function_component(Iro)]
@@ -21,12 +21,15 @@ pub fn iro() -> Html {
     html! {
         <div>
             <h1>{"Iro"}</h1>
-            <div id={"iro_form"}>
-                <SimpleForm form_title={"Add IRO"} onsubmit={iro_form_submit} />
-                <button onclick={onclick}>{"Go Home"}</button>
-            </div>
+            <details>
+                <summary>{"Add an IRO"}</summary>
+                <div class={"form_container"}>
+                    <SimpleForm form_title={"Add IRO"} onsubmit={iro_form_submit} />
+                </div>
+            </details>
+            <button onclick={onclick}>{"Go Home"}</button>
             <div id={"iro_display"}>
-                <DataDisplay title={"💊 Iro Data 💉"} entity={Entity::Iro} on_load={data_display_loaded} />
+                <IroDisplay title={"💊 Iro Data 💉"} entity={Entity::Iro} on_load={data_display_loaded} />
             </div>
         </div>
     }

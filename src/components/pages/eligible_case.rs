@@ -2,6 +2,7 @@ use yew::prelude::*;
 use gloo::console::log;
 use yew_router::prelude::*;
 use crate::components::units::eligible_case_form::{EligibleCaseForm, Data};
+use crate::components::units::eligible_case_display::{EligibleCaseDisplay, Entity};
 
 use crate::router::Route;
 
@@ -15,11 +16,20 @@ pub fn eligible_case() -> Html {
         log!("Denial Reason is", data.denial_reason);
         log!("Expedited is", data.expedited);
     });
+    let data_display_loaded = Callback::from(|message: String| log!(message));
     html! {
         <div>
             <h1>{"EligibleCase"}</h1>
-            <EligibleCaseForm form_title={"Add Eligible Case"} onsubmit={eligible_case_form_submit} />
+            <details>
+            <summary>{"Add an Insurer"}</summary>
+                <div class={"form_container"}>
+                    <EligibleCaseForm form_title={"Add Eligible Case"} onsubmit={eligible_case_form_submit} />
+                </div>
+            </details>
             <button onclick={onclick}>{"Go Home"}</button>
+            <div id={"insurer_display"}>
+                <EligibleCaseDisplay title={"⚕️ Eligible Case Data 🥼"} entity={Entity::EligibleCase} on_load={data_display_loaded} />
+            </div>
         </div>
     }
 }

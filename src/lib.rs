@@ -59,7 +59,7 @@ pub fn app() -> Html {
             <ul>
                 <li>{"🩺 Doc"}</li>
             </ul>
-            <SimpleForm form_title={"Lib Form"} onsubmit={custom_form_submit} />
+            // <SimpleForm form_title={"Lib Form"} onsubmit={custom_form_submit} />
             if p_class == "main_p" {
                 <p>{"This is the main p"}</p>
             } else {
