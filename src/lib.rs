@@ -17,7 +17,7 @@ const CSS_FILE: &str = include_str!("main.css");
 
 #[derive(Serialize)]
 struct CurrentUser {
-    username: Option<String>,
+    username: String,
     role: Option<String>,
 }
 
@@ -25,10 +25,11 @@ struct CurrentUser {
 pub fn app() -> Html {
     let stylesheet = Style::new(CSS_FILE).unwrap();
     let username = "Jim_01";
-    let current_user = CurrentUser {
-        username: Some(username.to_owned()),
-        role: Some("admin".to_owned()),
-    };
+    // let current_user = CurrentUser {
+    //     username: Some(username.to_owned()),
+    //     role: Some("admin".to_owned()),
+    // };
+    let current_user: Option<CurrentUser> = None;
     log!("The username is", username);
     log!(serde_json::to_string_pretty(&current_user).unwrap());
     let title_class = "alt_title";
@@ -49,10 +50,15 @@ pub fn app() -> Html {
         // let state = use_state(|| User {token: ""})
         <div class={stylesheet}>   
             <MainTitle title="🏥 External Review Portal for {INSERT STATE HERE} 🩺" color={Color::Okay} on_load={main_title_loaded} />
-            if current_user.username.is_some() {
+            if current_user.is_some() {
                 <BrowserRouter>
                     // Nav needs to be child of BrowserRouter
                     <Nav color={"black"} />
+                    <Switch<Route> render={switch} />
+                </BrowserRouter>
+            } else {
+                <BrowserRouter>
+                    <p><Link<Route> to={Route::Login}>{"Please Login to Continue"}</Link<Route>></p>
                     <Switch<Route> render={switch} />
                 </BrowserRouter>
             }

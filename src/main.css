@@ -113,3 +113,11 @@ input[type=text] {
 .data-display {
     color: black;
 }
+
+.sub-form {
+    display: flex;
+}
+
+.sub-form a {
+    margin: auto;
+}
