@@ -26,27 +26,22 @@ pub struct ApiLoginResponse {
     pub token: String,
 }
 
-#[derive(Serialize, Deserialize)]
-struct ApiLoginResponseData {
-    pub data: ApiLoginResponse
-}
-
 pub async fn login_user(username: String, password: String) -> ApiLoginResponse {
     let body = json!({
         "username": username,
         "password": password
     });
     let response = Request::post("http://localhost:3000/users/login")
-        .header("content-type", "application/json")
+        .header("Content-Type", "application/json")
         .body(body.to_string())
         .send()
         .await
         .unwrap()
-        .json::<ApiLoginResponseData>()
+        .json::<ApiLoginResponse>()
         .await
         .unwrap();
 
-    response.data
+    response
 }
 
 // const real_login_form_submit = Callback::from(|event: SubmitEvent| {
@@ -86,6 +81,7 @@ pub fn login_form(props: &Props) -> Html {
         let password = state.password.clone();
         wasm_bindgen_futures::spawn_local(async move {
             let response = login_user(username, password).await;
+            // Use this
             log!(response.token)
         })
     });
