@@ -16,3 +16,4 @@ web-sys = { version = "0.3.64", features = ["HtmlInputElement"] }
 yew-router = "0.17.0"
 reqwasm = "0.5.0"
 wasm-bindgen-futures = "0.4.37"
+yewdux = "0.9.3"

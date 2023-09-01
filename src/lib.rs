@@ -7,6 +7,7 @@ use yew_router::prelude::*;
 
 mod components;
 mod router;
+mod store;
 
 use components::units::main_title::{MainTitle, Color};
 use components::units::simple_form::{SimpleForm, Data};
