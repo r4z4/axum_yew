@@ -94,7 +94,7 @@ pub fn login_form(props: &Props) -> Html {
         let dispatch = store.dispatch().clone();
         store
             .dispatch()
-            .reduce_callbacl_with(move |state, event: FocusEvent| {
+            .reduce_callback_with(move |state, event: FocusEvent| {
                 event.prevent_default();
                 let username = state.username.clone();
                 let password = state.password.clone();
