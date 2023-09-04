@@ -66,6 +66,7 @@ pub fn login_form(props: &Props) -> Html {
     let state: UseStateHandle<Data> = use_state(|| Data::default());
 
     let onchange_username = {
+        let cloned_data_state = state.clone();
         let dispatch = dispatch.clone();
         Callback::from(move |event: Event| {
           let username: String = event.target_unchecked_into::<HtmlInputElement>().value();
@@ -74,11 +75,16 @@ pub fn login_form(props: &Props) -> Html {
           } else {
             Some(username)
           };
+          let cloned_username = username.clone();
           dispatch.reduce_mut(|store| store.username = username);
+          let mut data = cloned_data_state.deref().clone();  
+          data.username = cloned_username.unwrap();
+          cloned_data_state.set(data);
         })
       };
 
       let onchange_password = {
+        let cloned_data_state = state.clone();
         let dispatch = dispatch.clone();
         Callback::from(move |event: Event| {
           let password: String = event.target_unchecked_into::<HtmlInputElement>().value();
@@ -87,7 +93,11 @@ pub fn login_form(props: &Props) -> Html {
           } else {
             Some(password)
           };
+          let cloned_password = password.clone();
           dispatch.reduce_mut(|store| store.password = password);
+          let mut data = cloned_data_state.deref().clone();  
+          data.password = cloned_password.unwrap();
+          cloned_data_state.set(data);
         })
       };
 
