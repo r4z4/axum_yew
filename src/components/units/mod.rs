@@ -6,6 +6,7 @@ pub mod email_input;
 pub mod insurer_display;
 pub mod iro_display;
 pub mod login_form;
+pub mod logout;
 pub mod main_title;
 pub mod nav;
 pub mod patient_display;

@@ -4,11 +4,15 @@ use stylist::Style;
 use stylist::{style, yew::styled_component};
 use yew::prelude::*;
 use yew_router::prelude::*;
+use yewdux::prelude::use_store;
 
 mod components;
 mod router;
 mod store;
 
+use crate::store::auth_store::AuthStore;
+use crate::components::units::button::Button;
+use crate::components::units::logout::Logout;
 use crate::components::units::nav::Nav;
 use crate::router::{switch, Route};
 use components::units::main_title::{Color, MainTitle};
@@ -26,6 +30,7 @@ struct CurrentUser {
 pub fn app() -> Html {
     let stylesheet = Style::new(CSS_FILE).unwrap();
     let username = "Jim_01";
+    let (store, dispatch) = use_store::<AuthStore>();
     // let current_user = CurrentUser {
     //     username: Some(username.to_owned()),
     //     role: Some("admin".to_owned()),
@@ -51,9 +56,10 @@ pub fn app() -> Html {
         // let state = use_state(|| User {token: ""})
         <div class={stylesheet}>
             <MainTitle title="🏥 External Review Portal for {INSERT STATE HERE} 🩺" color={Color::Okay} on_load={main_title_loaded} />
-            if current_user.is_some() {
+            if store.token.is_some() {
                 <BrowserRouter>
                     // Nav needs to be child of BrowserRouter
+                    <Logout label={"Logout"} />
                     <Nav color={"black"} />
                     <Switch<Route> render={switch} />
                 </BrowserRouter>
