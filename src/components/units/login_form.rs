@@ -62,67 +62,63 @@ pub async fn login_user(username: String, password: String) -> ApiLoginResponse 
 
 #[function_component(LoginForm)]
 pub fn login_form(props: &Props) -> Html {
-    let store = use_store::<PersistentStore<AuthStore>>;
+    let (store, dispatch) = use_store::<AuthStore>();
     let state: UseStateHandle<Data> = use_state(|| Data::default());
 
-    let username_changed: Callback<Event> =
-        store
-            .dispatch()
-            .reduce_callback_with(|state, event: Event| {
-                let username: String = event
-                    .target()
-                    .unwrap()
-                    .unchecked_into::<HtmlInputElement>()
-                    .value();
-                state.username = username;
-            });
+    let onchange_username = {
+        let dispatch = dispatch.clone();
+        Callback::from(move |event: Event| {
+          let username: String = event.target_unchecked_into::<HtmlInputElement>().value();
+          let username: Option<String> = if username.is_empty() {
+              None
+          } else {
+            Some(username)
+          };
+          dispatch.reduce_mut(|store| store.username = username);
+        })
+      };
 
-    let password_changed: Callback<Event> =
-        store
-            .dispatch()
-            .reduce_callback_with(|state, event: Event| {
-                let password: String = event
-                    .target()
-                    .unwrap()
-                    .unchecked_into::<HtmlInputElement>()
-                    .value();
-                state.password = password;
-            });
+      let onchange_password = {
+        let dispatch = dispatch.clone();
+        Callback::from(move |event: Event| {
+          let password: String = event.target_unchecked_into::<HtmlInputElement>().value();
+          let password: Option<String> = if password.is_empty() {
+              None
+          } else {
+            Some(password)
+          };
+          dispatch.reduce_mut(|store| store.password = password);
+        })
+      };
 
     // let form_onsubmit = real_login_form_submit.clone();
     let cloned_state = state.clone();
 
-    let onsubmit: Callback<SubmitEvent> = {
-        let dispatch = store.dispatch().clone();
-        store
-            .dispatch()
-            .reduce_callback_with(move |state, event: FocusEvent| {
-                event.prevent_default();
-                let username = state.username.clone();
-                let password = state.password.clone();
-                let dispatch = dispatch.clone();
+    let onsubmit: Callback<SubmitEvent> = Callback::from(move |event: SubmitEvent| {
+        event.prevent_default();
+        let username = state.username.clone();
+        let password = state.password.clone();
+        wasm_bindgen_futures::spawn_local(async move {
+            let response = login_user(username, password).await;
+            // Use this
+            log!(response.token)
+        })
+    });
 
-                wasm_bindgen_futures::spawn_local(async move {
-                    let response = login_user(username, password).await;
-                    let token = response.token;
-                    // Need this to be a move because moving this token into this closure
-                    dispatch.reduce(move |state| state.token = token);
-                })
-            });
-    };
-
-    let token = if let Some(state) = store.state() {
-        state.token.clone()
-    } else {
-        String::new() // Just get new empty string
-    };
+    // let token = if let Some(state) = store.state() {
+    //     state.token.clone()
+    // } else {
+    //     String::new() // Just get new empty string
+    // };
 
     html! {
         <div>
             <h3>{props.form_title.deref().clone()}</h3>
             <form onsubmit={onsubmit}>
-                <TextInput name="username" placeholder="Userame" handle_onchange={username_changed} />
-                <TextInput name="password" placeholder="Passwrod" handle_onchange={password_changed} />
+                // <TextInput name="username" placeholder="Userame" handle_onchange={onchange_username} />
+                // <TextInput name="password" placeholder="Passwrod" handle_onchange={onchange_password} />
+                <input type="text" placeholder="Username" onchange={onchange_username} />
+                <input type="text" placeholder="Username" onchange={onchange_password} />
                 <Button label="Login" />
             </form>
         </div>
