@@ -1,15 +1,15 @@
-use yew::prelude::*;
 use gloo::console::log;
-use stylist::{yew::styled_component, style};
 use reqwasm::http::Request;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use std::ops::Deref;
+use stylist::{style, yew::styled_component};
+use yew::prelude::*;
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
     pub title: String,
     pub entity: Entity,
-    pub on_load: Callback<String>
+    pub on_load: Callback<String>,
 }
 
 #[derive(PartialEq)]
@@ -22,13 +22,15 @@ pub enum Entity {
 }
 
 fn vec_to_html(list: &Vec<Iro>) -> Vec<Html> {
-    list.iter().map(|iro| html!
-        {<ul class="data-display">
-            <li>{iro.iro_name.clone()}</li>
-            <li>{iro.iro_phone.clone()}</li>
-            <li>{iro.iro_zip.clone()}</li>
-        </ul>}
-    ).collect()
+    list.iter()
+        .map(|iro| {
+            html! {<ul class="data-display">
+                <li>{iro.iro_name.clone()}</li>
+                <li>{iro.iro_phone.clone()}</li>
+                <li>{iro.iro_zip.clone()}</li>
+            </ul>}
+        })
+        .collect()
 }
 
 impl Entity {
@@ -67,14 +69,14 @@ pub fn iro_display(props: &Props) -> Html {
             let data = data.clone();
             wasm_bindgen_futures::spawn_local(async move {
                 let response = Request::get("http://localhost:3000/get_iros")
-                //.header("x-auth-token", &state.token)
-                .send()
-                .await
-                // FIXME unwrap_or_else - handle
-                .unwrap()
-                .json::<Vec<Iro>>()
-                .await
-                .unwrap();
+                    //.header("x-auth-token", &state.token)
+                    .send()
+                    .await
+                    // FIXME unwrap_or_else - handle
+                    .unwrap()
+                    .json::<Vec<Iro>>()
+                    .await
+                    .unwrap();
 
                 // log!(serde_json::to_string_pretty(&response).unwrap());
                 data.set(Some(response))

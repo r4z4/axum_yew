@@ -1,10 +1,10 @@
-use yew::prelude::*;
-use crate::components::units::text_input::TextInput;
-use crate::components::units::email_input::EmailInput;
 use crate::components::units::button::Button;
-use wasm_bindgen::JsCast;
+use crate::components::units::email_input::EmailInput;
+use crate::components::units::text_input::TextInput;
 use gloo::console::log;
 use std::ops::Deref;
+use wasm_bindgen::JsCast;
+use yew::prelude::*;
 
 #[derive(Default, Clone)]
 pub struct Data {
@@ -23,35 +23,34 @@ pub struct Props {
 #[function_component(RegisterForm)]
 pub fn register_form(props: &Props) -> Html {
     let state: UseStateHandle<Data> = use_state(|| Data::default());
-    
+
     let cloned_state: UseStateHandle<Data> = state.clone();
     let username_changed: Callback<String> = Callback::from(move |username| {
         let mut data: Data = cloned_state.deref().clone();
         data.username = username;
-        cloned_state.set(data);    
+        cloned_state.set(data);
     });
 
     let cloned_state: UseStateHandle<Data> = state.clone();
     let password_changed: Callback<String> = Callback::from(move |password| {
         let mut data: Data = cloned_state.deref().clone();
         data.password = password;
-        cloned_state.set(data);    
+        cloned_state.set(data);
     });
 
     let cloned_state: UseStateHandle<Data> = state.clone();
     let re_password_changed: Callback<String> = Callback::from(move |re_password| {
         let mut data: Data = cloned_state.deref().clone();
         data.re_password = re_password;
-        cloned_state.set(data);    
+        cloned_state.set(data);
     });
 
     let cloned_state: UseStateHandle<Data> = state.clone();
     let email_changed: Callback<String> = Callback::from(move |password| {
         let mut data: Data = cloned_state.deref().clone();
         data.password = password;
-        cloned_state.set(data);    
+        cloned_state.set(data);
     });
-
 
     let form_onsubmit = props.onsubmit.clone();
     let cloned_state = state.clone();

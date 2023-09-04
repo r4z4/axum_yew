@@ -1,8 +1,8 @@
+use gloo::console::log;
 use yew::prelude::*;
 use yew_router::prelude::*;
-use gloo::console::log;
 
-use crate::components::units::register_form::{RegisterForm, Data};
+use crate::components::units::register_form::{Data, RegisterForm};
 use crate::router::Route;
 
 #[function_component(Register)]

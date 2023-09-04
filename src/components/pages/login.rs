@@ -1,9 +1,9 @@
-use yew::prelude::*;
-use yew_router::prelude::*;
 use gloo::console::log;
 use reqwasm::http::Request;
+use yew::prelude::*;
+use yew_router::prelude::*;
 
-use crate::components::units::login_form::{LoginForm, Data};
+use crate::components::units::login_form::{Data, LoginForm};
 use crate::router::Route;
 
 #[function_component(Login)]

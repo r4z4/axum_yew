@@ -1,18 +1,18 @@
-use yew::prelude::*;
 use gloo::console::log;
 use serde::Serialize;
-use stylist::{yew::styled_component, style};
 use stylist::Style;
+use stylist::{style, yew::styled_component};
+use yew::prelude::*;
 use yew_router::prelude::*;
 
 mod components;
 mod router;
 mod store;
 
-use components::units::main_title::{MainTitle, Color};
-use components::units::simple_form::{SimpleForm, Data};
 use crate::components::units::nav::Nav;
 use crate::router::{switch, Route};
+use components::units::main_title::{Color, MainTitle};
+use components::units::simple_form::{Data, SimpleForm};
 
 const CSS_FILE: &str = include_str!("main.css");
 
@@ -49,7 +49,7 @@ pub fn app() -> Html {
 
     html! {
         // let state = use_state(|| User {token: ""})
-        <div class={stylesheet}>   
+        <div class={stylesheet}>
             <MainTitle title="🏥 External Review Portal for {INSERT STATE HERE} 🩺" color={Color::Okay} on_load={main_title_loaded} />
             if current_user.is_some() {
                 <BrowserRouter>
@@ -87,5 +87,5 @@ pub fn app() -> Html {
 }
 
 fn vec_to_html(list: Vec<&str>) -> Vec<Html> {
-    list.iter().map(|item| html!{<li>{item}</li>}).collect()
+    list.iter().map(|item| html! {<li>{item}</li>}).collect()
 }

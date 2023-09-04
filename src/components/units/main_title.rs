@@ -1,11 +1,11 @@
+use stylist::{style, yew::styled_component};
 use yew::prelude::*;
-use stylist::{yew::styled_component, style};
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
     pub title: String,
     pub color: Color,
-    pub on_load: Callback<String>
+    pub on_load: Callback<String>,
 }
 
 #[derive(PartialEq)]

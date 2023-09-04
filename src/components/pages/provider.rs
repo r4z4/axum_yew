@@ -1,9 +1,9 @@
+use gloo::console::log;
 use yew::prelude::*;
 use yew_router::prelude::*;
-use gloo::console::log;
 
-use crate::components::units::simple_form::{SimpleForm, Data};
-use crate::components::units::provider_display::{ProviderDisplay, Entity};
+use crate::components::units::provider_display::{Entity, ProviderDisplay};
+use crate::components::units::simple_form::{Data, SimpleForm};
 use crate::router::Route;
 
 #[function_component(Provider)]

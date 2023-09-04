@@ -1,15 +1,15 @@
-use yew::prelude::*;
 use gloo::console::log;
-use stylist::{yew::styled_component, style};
 use reqwasm::http::Request;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use std::ops::Deref;
+use stylist::{style, yew::styled_component};
+use yew::prelude::*;
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
     pub title: String,
     pub entity: Entity,
-    pub on_load: Callback<String>
+    pub on_load: Callback<String>,
 }
 
 #[derive(PartialEq)]
@@ -22,13 +22,15 @@ pub enum Entity {
 }
 
 fn vec_to_html(list: &Vec<EligibleCase>) -> Vec<Html> {
-    list.iter().map(|eligible_case| html!
-        {<ul class="data-display">
-            <li>{eligible_case.eligible_case_id.clone()}</li>
-            <li>{eligible_case.patient_id.clone()}</li>
-            <li>{eligible_case.denial_reason.clone()}</li>
-        </ul>}
-    ).collect()
+    list.iter()
+        .map(|eligible_case| {
+            html! {<ul class="data-display">
+                <li>{eligible_case.eligible_case_id.clone()}</li>
+                <li>{eligible_case.patient_id.clone()}</li>
+                <li>{eligible_case.denial_reason.clone()}</li>
+            </ul>}
+        })
+        .collect()
 }
 
 impl Entity {
@@ -73,14 +75,14 @@ pub fn eligible_case_display(props: &Props) -> Html {
             let data = data.clone();
             wasm_bindgen_futures::spawn_local(async move {
                 let response = Request::get("http://localhost:3000/get_eligible_cases")
-                //.header("x-auth-token", &state.token)
-                .send()
-                .await
-                // FIXME unwrap_or_else - handle
-                .unwrap()
-                .json::<Vec<EligibleCase>>()
-                .await
-                .unwrap();
+                    //.header("x-auth-token", &state.token)
+                    .send()
+                    .await
+                    // FIXME unwrap_or_else - handle
+                    .unwrap()
+                    .json::<Vec<EligibleCase>>()
+                    .await
+                    .unwrap();
 
                 // log!(serde_json::to_string_pretty(&response).unwrap());
                 data.set(Some(response))

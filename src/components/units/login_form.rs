@@ -1,17 +1,17 @@
-use yew::prelude::*;
-use yewdux::prelude::*;
-use serde::{Serialize, Deserialize};
-use web_sys::HtmlInputElement;
-use wasm_bindgen::JsCast;
-use serde_json::json;
-use reqwasm::http::Request;
 use gloo::console::log;
+use reqwasm::http::Request;
+use serde::{Deserialize, Serialize};
+use serde_json::json;
 use std::ops::Deref;
+use wasm_bindgen::JsCast;
+use web_sys::HtmlInputElement;
+use yew::prelude::*;
 use yewdux::functional::use_store;
+use yewdux::prelude::*;
 use yewdux::store::*;
 
-use crate::components::units::text_input::TextInput;
 use crate::components::units::button::Button;
+use crate::components::units::text_input::TextInput;
 use crate::store::auth_store::AuthStore;
 
 #[derive(Default, Clone)]
@@ -64,28 +64,30 @@ pub async fn login_user(username: String, password: String) -> ApiLoginResponse 
 pub fn login_form(props: &Props) -> Html {
     let store = use_store::<PersistentStore<AuthStore>>;
     let state: UseStateHandle<Data> = use_state(|| Data::default());
-    
-    let username_changed: Callback<Event> = store
-        .dispatch()
-        .reduce_callback_with(|state, event: Event| {
-            let username: String = event
-                .target()
-                .unwrap()
-                .unchecked_into::<HtmlInputElement>()
-                .value();
-            state.username = username;   
-        });
 
-    let password_changed: Callback<Event> = store
-        .dispatch()
-        .reduce_callback_with(|state, event: Event| {
-            let password: String = event
-                .target()
-                .unwrap()
-                .unchecked_into::<HtmlInputElement>()
-                .value();
-            state.password = password;   
-        });
+    let username_changed: Callback<Event> =
+        store
+            .dispatch()
+            .reduce_callback_with(|state, event: Event| {
+                let username: String = event
+                    .target()
+                    .unwrap()
+                    .unchecked_into::<HtmlInputElement>()
+                    .value();
+                state.username = username;
+            });
+
+    let password_changed: Callback<Event> =
+        store
+            .dispatch()
+            .reduce_callback_with(|state, event: Event| {
+                let password: String = event
+                    .target()
+                    .unwrap()
+                    .unchecked_into::<HtmlInputElement>()
+                    .value();
+                state.password = password;
+            });
 
     // let form_onsubmit = real_login_form_submit.clone();
     let cloned_state = state.clone();
@@ -104,7 +106,7 @@ pub fn login_form(props: &Props) -> Html {
                     let response = login_user(username, password).await;
                     let token = response.token;
                     // Need this to be a move because moving this token into this closure
-                    dispatch.reduce(move  |state| state.token = token);  
+                    dispatch.reduce(move |state| state.token = token);
                 })
             });
     };
@@ -114,7 +116,7 @@ pub fn login_form(props: &Props) -> Html {
     } else {
         String::new() // Just get new empty string
     };
-    
+
     html! {
         <div>
             <h3>{props.form_title.deref().clone()}</h3>

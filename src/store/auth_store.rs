@@ -1,5 +1,5 @@
+use serde::{Deserialize, Serialize};
 use yewdux::prelude::*;
-use serde::{Serialize, Deserialize};
 use yewdux::storage::Area;
 use yewdux::store::*;
 
@@ -9,7 +9,7 @@ pub struct AuthStore {
     pub username: Option<String>,
     pub password: Option<String>,
     pub token: Option<String>,
-    pub is_authenticated: bool
+    pub is_authenticated: bool,
 }
 
 pub fn set_username(username: String, dispatch: Dispatch<AuthStore>) {

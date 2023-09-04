@@ -1,8 +1,8 @@
-use yew::prelude::*;
-use gloo::console::log;
-use yew_router::prelude::*;
-use crate::components::units::eligible_case_form::{EligibleCaseForm, Data};
 use crate::components::units::eligible_case_display::{EligibleCaseDisplay, Entity};
+use crate::components::units::eligible_case_form::{Data, EligibleCaseForm};
+use gloo::console::log;
+use yew::prelude::*;
+use yew_router::prelude::*;
 
 use crate::router::Route;
 
