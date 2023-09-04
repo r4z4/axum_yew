@@ -8,10 +8,6 @@ use crate::router::Route;
 
 #[function_component(EligibleCase)]
 pub fn eligible_case() -> Html {
-    let navigator = use_navigator().unwrap();
-    let onclick = Callback::from(move |_| {
-        navigator.push(&Route::Home);
-    });
     let eligible_case_form_submit = Callback::from(|data: Data| {
         log!("Denial Reason is", data.denial_reason);
         log!("Expedited is", data.expedited);
@@ -26,7 +22,6 @@ pub fn eligible_case() -> Html {
                     <EligibleCaseForm form_title={"Add Eligible Case"} onsubmit={eligible_case_form_submit} />
                 </div>
             </details>
-            <button onclick={onclick}>{"Go Home"}</button>
             <div id={"insurer_display"}>
                 <EligibleCaseDisplay title={"⚕️ Eligible Case Data 🥼"} entity={Entity::EligibleCase} on_load={data_display_loaded} />
             </div>

@@ -59,7 +59,7 @@ pub fn app() -> Html {
             if store.token.is_some() {
                 <BrowserRouter>
                     // Nav needs to be child of BrowserRouter
-                    <Logout label={"Logout"} />
+                    <Logout label={"⇥"} />
                     <Nav color={"black"} />
                     <Switch<Route> render={switch} />
                 </BrowserRouter>

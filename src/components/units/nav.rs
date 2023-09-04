@@ -19,6 +19,7 @@ pub fn nav(props: &Props) -> Html {
                 <li><Link<Route> to={Route::Insurer}>{"Insurer"}</Link<Route>></li>
                 <li><Link<Route> to={Route::Iro}>{"Iro"}</Link<Route>></li>
                 <li><Link<Route> to={Route::EligibleCase}>{"Eligible Case"}</Link<Route>></li>
+                <li><Link<Route> to={Route::Home}>{"🏠"}</Link<Route>></li>
             </ul>
         </div>
     }

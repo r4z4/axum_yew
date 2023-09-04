@@ -8,10 +8,6 @@ use crate::router::Route;
 
 #[function_component(Iro)]
 pub fn iro() -> Html {
-    let navigator = use_navigator().unwrap();
-    let onclick = Callback::from(move |_| {
-        navigator.push(&Route::Home);
-    });
     let iro_form_submit = Callback::from(|data: Data| {
         log!("Name is", data.name);
         log!("Addr 1 is", data.address_1);
@@ -27,7 +23,6 @@ pub fn iro() -> Html {
                     <SimpleForm form_title={"Add IRO"} onsubmit={iro_form_submit} />
                 </div>
             </details>
-            <button onclick={onclick}>{"Go Home"}</button>
             <div id={"iro_display"}>
                 <IroDisplay title={"💊 Iro Data 💉"} entity={Entity::Iro} on_load={data_display_loaded} />
             </div>

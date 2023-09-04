@@ -8,10 +8,6 @@ use crate::router::Route;
 
 #[function_component(Provider)]
 pub fn provider() -> Html {
-    let navigator = use_navigator().unwrap();
-    let onclick = Callback::from(move |_| {
-        navigator.push(&Route::Home);
-    });
     let provider_form_submit = Callback::from(|data: Data| {
         log!("Name is", data.name);
         log!("Addr 1 is", data.address_1);
@@ -27,7 +23,6 @@ pub fn provider() -> Html {
                     <SimpleForm form_title={"Add Provider"} onsubmit={provider_form_submit} />
                 </div>
             </details>
-            <button onclick={onclick}>{"Go Home"}</button>
             <div id={"provider_display"}>
                 <ProviderDisplay title={"👨‍⚕️ Provider Data 👩‍⚕️"} entity={Entity::Provider} on_load={data_display_loaded} />
             </div>

@@ -29,18 +29,16 @@ body {
 
 #nav-list {
     margin: auto;
-    width: auto;
+    text-align: center;
 }
 
 #nav-list ul{
     list-style: none;
-    text-align: center;
 }
 
 #nav-list li{
     display: inline;
-    padding: 10px;
-    
+    padding: 10px; 
 }
 
 .data-display {
@@ -120,4 +118,19 @@ input[type=text] {
 
 .sub-form a {
     margin: auto;
+}
+
+.logout {
+    background-color: rgb(144, 173, 235); 
+    color: white; 
+    border: 1px solid black;
+    float: right;
+    box-shadow: 0 2px 0 0 black;
+    border-radius: 5px;
+    font-size: 2rem; 
+    cursor: pointer;
+  }
+  
+.logout:hover {
+    background-color: RoyalBlue;
 }
