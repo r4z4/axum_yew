@@ -6,6 +6,7 @@ use std::ops::Deref;
 use wasm_bindgen::JsCast;
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
+use yew_router::prelude::use_navigator;
 use yewdux::functional::use_store;
 use yewdux::prelude::*;
 use yewdux::store::*;
@@ -13,6 +14,7 @@ use yewdux::store::*;
 use crate::components::units::button::Button;
 use crate::components::units::text_input::TextInput;
 use crate::store::auth_store::AuthStore;
+use crate::router::{switch, Route};
 
 #[derive(Default, Clone)]
 pub struct Data {
@@ -64,6 +66,7 @@ pub async fn login_user(username: String, password: String) -> ApiLoginResponse 
 pub fn login_form(props: &Props) -> Html {
     let (store, dispatch) = use_store::<AuthStore>();
     let state: UseStateHandle<Data> = use_state(|| Data::default());
+    let navigator = use_navigator().unwrap();
 
     let onchange_username = {
         let cloned_data_state = state.clone();
@@ -94,7 +97,7 @@ pub fn login_form(props: &Props) -> Html {
             Some(password)
           };
           let cloned_password = password.clone();
-          dispatch.reduce_mut(|store| store.password = password);
+          // dispatch.reduce_mut(|store| store.password = password);
           let mut data = cloned_data_state.deref().clone();  
           data.password = cloned_password.unwrap();
           cloned_data_state.set(data);
@@ -105,13 +108,17 @@ pub fn login_form(props: &Props) -> Html {
     let cloned_state = state.clone();
 
     let onsubmit: Callback<SubmitEvent> = Callback::from(move |event: SubmitEvent| {
+        let dispatch = dispatch.clone();
+        let navigator = navigator.clone();
         event.prevent_default();
         let username = state.username.clone();
         let password = state.password.clone();
         wasm_bindgen_futures::spawn_local(async move {
             let response = login_user(username, password).await;
             // Use this
-            log!(response.token)
+            // log!(response.token)
+            dispatch.reduce_mut(|store| store.token = Some(response.token));
+            navigator.push(&Route::Home);
         })
     });
 
