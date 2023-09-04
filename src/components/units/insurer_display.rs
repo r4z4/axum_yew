@@ -87,7 +87,7 @@ pub fn insurer_display(props: &Props) -> Html {
     html! {
         <div class={"data-display"}>
             <h1>{&props.title}</h1>
-            <p>{&props.entity.to_string()}</p>
+            <h4>{format!("Click Below to Fetch {} Data.", &props.entity.to_string())}</h4>
             if cloned_data.is_some() {
                 {vec_to_html(cloned_data.as_ref().unwrap())}
             }

@@ -7,6 +7,7 @@ use yew::prelude::*;
 pub struct Props {
     pub name: String,
     pub placeholder: String,
+    pub class: Option<String>,
     pub handle_onchange: Callback<String>,
 }
 
@@ -14,6 +15,11 @@ pub struct Props {
 pub fn text_input(props: &Props) -> Html {
     let handle_onchange: Callback<String> = props.handle_onchange.clone();
     let input_string: UseStateHandle<String> = use_state(|| "".to_owned());
+    let class = if props.class.is_some() {
+        props.class.clone() 
+    } else {
+        Some("text-input".to_owned())
+    };
     let onchange = {
         let input_string_cloned: UseStateHandle<String> = input_string.clone();
         Callback::from(move |event: Event| {
@@ -24,6 +30,6 @@ pub fn text_input(props: &Props) -> Html {
         })
     };
     html! {
-        <input type="text" name={props.name.clone()} placeholder={props.placeholder.clone()} onchange={onchange}/>
+        <input type="text" class={class} name={props.name.clone()} placeholder={props.placeholder.clone()} onchange={onchange}/>
     }
 }

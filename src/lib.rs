@@ -39,7 +39,6 @@ pub fn app() -> Html {
     log!("The username is", username);
     log!(serde_json::to_string_pretty(&current_user).unwrap());
     let title_class = "alt_title";
-    let p_class = "main_p";
     let message: Option<&str> = None;
 
     let roles: Vec<&str> = vec!["admin", "patient", "gov", "office"];
@@ -56,6 +55,7 @@ pub fn app() -> Html {
         // let state = use_state(|| User {token: ""})
         <div class={stylesheet}>
             <MainTitle title="🏥 External Review Portal for {INSERT STATE HERE} 🩺" color={Color::Okay} on_load={main_title_loaded} />
+            
             if store.token.is_some() {
                 <BrowserRouter>
                     // Nav needs to be child of BrowserRouter
@@ -65,29 +65,26 @@ pub fn app() -> Html {
                 </BrowserRouter>
             } else {
                 <BrowserRouter>
-                    <p><Link<Route> to={Route::Login}>{"Please Login to Continue"}</Link<Route>></p>
+                    <h2 class={"login-route"}><Link<Route> to={Route::Login}>{"Welcome to the External Review Portal. Click the Key to Login & Continue. 🔑"}</Link<Route>></h2>
                     <Switch<Route> render={switch} />
                 </BrowserRouter>
             }
-            <ul>
-                <li>{"🩺 Doc"}</li>
-            </ul>
+            
             // <SimpleForm form_title={"Lib Form"} onsubmit={custom_form_submit} />
-            if p_class == "main_p" {
-                <p>{"This is the main p"}</p>
-            } else {
-                <p>{"This is the alt p"}</p>
-            }
 
-            if let Some(message) = message {
-                <p>{message}</p>
-            } else {
-                <p>{"No user messages."}</p>
-            }
+            <div id={"user-messages"}>
+                if let Some(message) = message {
+                    <p>{message}</p>
+                } else {
+                    <p>{"No user messages."}</p>
+                }
+            </div>
 
-            <ul>
-                {vec_to_html(roles)}
-            </ul>
+            <div id={"roles"}>
+                <ul>
+                    {vec_to_html(roles)}
+                </ul>
+            </div>
         </div>
     }
 }

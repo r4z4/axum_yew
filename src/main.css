@@ -32,13 +32,17 @@ body {
     text-align: center;
 }
 
-#nav-list ul{
+#nav-list ul {
     list-style: none;
 }
 
-#nav-list li{
+#nav-list li {
     display: inline;
     padding: 10px; 
+}
+
+#nav-list a {
+    text-decoration: none;
 }
 
 .data-display {
@@ -47,6 +51,17 @@ body {
 
 .data-display h1 {
     text-align: center;
+}
+
+.data-display h4 {
+    text-align: center;
+    padding: 0px 12px;
+}
+
+.entity-page h1 {
+    text-align: center;
+    margin: 32px auto;
+    color: rgb(81, 102, 239)
 }
 
 fieldset {
@@ -60,7 +75,6 @@ legend {
 }
 
 input[type=text] {
-    width: 100%;
     padding: 12px 20px;
     border-radius: 10px;
     margin: 8px 0;
@@ -120,6 +134,14 @@ input[type=text] {
     margin: auto;
 }
 
+.login-route a {
+    text-decoration: none;
+}
+
+.login-route {
+    text-align: center;
+}
+
 .logout {
     background-color: rgb(144, 173, 235); 
     color: white; 
@@ -133,4 +155,16 @@ input[type=text] {
   
 .logout:hover {
     background-color: RoyalBlue;
+}
+
+#user-messages p {
+    text-align: center;
+}
+
+.half-input {
+    width: 45%;
+}
+
+.text-input {
+    width: 100%;
 }

@@ -14,8 +14,8 @@ pub fn eligible_case() -> Html {
     });
     let data_display_loaded = Callback::from(|message: String| log!(message));
     html! {
-        <div>
-            <h1>{"EligibleCase"}</h1>
+        <div  class={"entity-page"}>
+            <h1>{"Eligible Cases"}</h1>
             <details>
             <summary>{"Add an Insurer"}</summary>
                 <div class={"form_container"}>

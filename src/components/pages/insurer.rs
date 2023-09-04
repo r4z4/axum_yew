@@ -15,8 +15,8 @@ pub fn insurer() -> Html {
     });
     let data_display_loaded = Callback::from(|message: String| log!(message));
     html! {
-        <div>
-            <h1>{"Insurer"}</h1>
+        <div class={"entity-page"}>
+            <h1>{"Insurers"}</h1>
             <details>
                 <summary>{"Add an Insurer"}</summary>
                 <div class={"form_container"}>

@@ -63,10 +63,10 @@ pub fn register_form(props: &Props) -> Html {
         <div>
             <h3>{props.form_title.deref().clone()}</h3>
             <form onsubmit={onsubmit}>
-                <TextInput name="username" placeholder="Userame" handle_onchange={username_changed} />
-                <TextInput name="password" placeholder="Passwrod" handle_onchange={password_changed} />
-                <TextInput name="re_password" placeholder="Reenter Passwrod" handle_onchange={re_password_changed} />
+                <TextInput class={"half-input"} name="username" placeholder="Userame" handle_onchange={username_changed} />
                 <EmailInput name="email" placeholder="Email" handle_onchange={email_changed} />
+                <TextInput name="password" placeholder="Password" handle_onchange={password_changed} />
+                <TextInput name="re_password" placeholder="Reenter Password" handle_onchange={re_password_changed} />
                 <Button label="Submit" />
             </form>
         </div>

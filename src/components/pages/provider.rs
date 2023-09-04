@@ -15,8 +15,8 @@ pub fn provider() -> Html {
     });
     let data_display_loaded = Callback::from(|message: String| log!(message));
     html! {
-        <div>
-            <h1>{"Provider"}</h1>
+        <div class={"entity-page"}>
+            <h1>{"Providers"}</h1>
             <details>
                 <summary>{"Add a Provider"}</summary>
                 <div class={"form_container"}>

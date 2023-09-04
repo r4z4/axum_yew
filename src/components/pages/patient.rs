@@ -15,8 +15,8 @@ pub fn patient() -> Html {
     });
     let data_display_loaded = Callback::from(|message: String| log!(message));
     html! {
-        <div>
-            <h1>{"Patient"}</h1>
+        <div class={"entity-page"}>
+            <h1>{"Patients"}</h1>
             <details>
                 <summary>{"Add a Patient"}</summary>
                 <div class={"form_container"}>

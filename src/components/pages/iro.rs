@@ -15,8 +15,8 @@ pub fn iro() -> Html {
     });
     let data_display_loaded = Callback::from(|message: String| log!(message));
     html! {
-        <div>
-            <h1>{"Iro"}</h1>
+        <div class={"entity-page"}>
+            <h1>{"Iros"}</h1>
             <details>
                 <summary>{"Add an IRO"}</summary>
                 <div class={"form_container"}>
