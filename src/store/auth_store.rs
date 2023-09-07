@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 use yewdux::prelude::*;
-use yewdux::storage::Area;
 use yewdux::store::*;
 
 #[derive(Store, Default, PartialEq, Clone, Serialize, Deserialize)]
