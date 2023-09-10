@@ -13,4 +13,4 @@ target/
 Cargo.lock
 
 # Can exclude during development
-*.wasm
+# *.wasm
